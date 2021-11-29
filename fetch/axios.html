@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axios Api</title>
+</head>
+
+<body>
+    <div>
+        <h1>Getting Started With Axios API</h1>
+        <blockquote><a href="https://axios-http.com/">Axios</a> is a promise-based HTTP Client for node.js and the
+            browser. It is isomorphic (= it can run in the browser and nodejs with the same codebase). On the
+            server-side it uses the native node.js http module, while on the client (browser) it uses XMLHttpRequests.
+        </blockquote>
+        <button id="fetchUserDataAxiosAPI">Fetch User Data with Axios API</button>
+    </div>
+
+    <hr>
+    <div id="axiosApiResponse"></div>
+
+    <script>
+
+        // Axios Fetch 
+
+        document.getElementById('fetchUserDataAxiosAPI').addEventListener('click', fetchUserDataAxios);
+
+        function fetchUserDataAxios() {
+
+            axios.get('https://jsonplaceholder.typicode.com/users/3')
+                .then(function (response) {
+                    // handle success
+                    console.log(response.data);
+                    var user = response.data;
+                    let output = '<h2>User - ' + user.name + '</h2>';
+                    output += `<li> Username - ${user.username}</li>`;
+                    output += `<li> Website - ${user.website}</li><hr>`;
+                    document.getElementById("axiosApiResponse").innerHTML = output;
+
+                })
+                .catch(error => {
+                    let output = `An error - ${error.message} <hr>`; // 'An error has occurred: 404'
+                    document.getElementById("axiosApiResponse").innerHTML = output;
+                })
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <div><a href="/index.html">Back</a></div>
+</body>
+
+</html>

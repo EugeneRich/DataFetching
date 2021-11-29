@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Api</title>
+</head>
+
+<body>
+    <div>
+        <h1>Getting Started With Fetch API</h1>
+        <blockquote>The Fetch API is basically a modern replacement for XHR; it was introduced in browsers to make
+            asynchronous HTTP requests easier to do in JavaScript, both for developers and other APIs that build on top of Fetch.
+        </blockquote>
+        <button id="fetchUserDataFetchAPI">Fetch User Data with Fetch API</button>
+    </div>
+    <hr>
+    <div id="fetchApiResponse"></div>
+
+    <script>
+
+        // The Fetch API 
+
+        document.getElementById('fetchUserDataFetchAPI').addEventListener('click', fetchUserData);
+
+        function fetchUserData() {
+            fetch('https://jsonplaceholder.typicode.com/users/1')
+                .then(response => {
+                    if (!response.ok) {
+                        const message = `An error has occured: ${response.status}`;
+                        throw new Error(message);
+                    }
+                    return response.json();
+                })
+                .then(user => {
+                    // console.log(user);
+                    let output = '<h2>User - ' + user.name + '</h2>';
+                    output += `<li> Username - ${user.username}</li>`;
+                    output += `<li> Website - ${user.website}</li><hr>`;
+                    document.getElementById("fetchApiResponse").innerHTML = output;
+                })
+                .catch(error => {
+                    let output = `An error - ${error.message} <hr>`; // 'An error has occurred: 404'
+                    document.getElementById("fetchApiResponse").innerHTML = output;
+                })
+        }
+    </script>
+    <div><a href="/index.html">Back</a></div>
+</body>
+
+</html>
